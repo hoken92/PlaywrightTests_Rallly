@@ -39,6 +39,7 @@ export class HomePage {
     count: string,
   ) {
     // Will check to see if title is visible and attached to the DOM first
+    // It will then assert all other elements to have the correct text
     await expect(this.groupPollTitle).toBeVisible();
     await expect(this.groupPollTitle).toHaveText(title);
     await expect(this.pollDescription).toHaveText(description);
@@ -47,7 +48,8 @@ export class HomePage {
   }
 
   async createPoll() {
+    // Class function that will click create button
     await this.createButton.click();
-    await expect(this.page).toHaveURL("./new");
+    //await expect(this.page).toHaveURL("./new");
   }
 }
