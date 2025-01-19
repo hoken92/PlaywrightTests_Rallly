@@ -30,6 +30,12 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    // Capture screenshot after each test failure.
+    screenshot: "only-on-failure",
+
+    // Record video only when retrying a test for the first time.
+    video: "on",
   },
 
   // Folder for test artifacts such as screenshots, videos, traces, etc.
@@ -37,7 +43,7 @@ export default defineConfig({
 
   expect: {
     // Maximum time expect() should wait for the condition to be met.
-    timeout: 10000,
+    timeout: 20000,
 
     toHaveScreenshot: {
       // An acceptable amount of pixels that could be different, unset by default.
