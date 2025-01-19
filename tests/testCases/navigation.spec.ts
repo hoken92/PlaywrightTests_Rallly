@@ -15,9 +15,7 @@ test.describe("Navigation tests", async () => {
   test(
     "Guest Navigation",
     {
-      // tags the test case as smoke tests
-      // all smoke tags can be run with npm run test:smoke script
-      tag: "@smoke",
+      // tag: "@smoke",
     },
     async ({ page }) => {
       // Sets up the class component to use Playwright page object
@@ -47,7 +45,7 @@ test.describe("Navigation tests", async () => {
       await expect(eventsPage.title).toHaveText("Events");
 
       // Navigates to Create Poll page via Nav and checks the title in the Create page
-      navigationBar.createNavItem.click();
+      navigationBar.createPollNavItem.click();
       const createPollsPage: CreatePollsPage = new CreatePollsPage(page);
       await expect(createPollsPage.title).toHaveText("Group Poll");
       //   commenting out the close button, since the locator for the button is too generic

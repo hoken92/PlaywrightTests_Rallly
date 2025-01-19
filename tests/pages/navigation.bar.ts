@@ -6,7 +6,7 @@ export class NavigationBar {
   readonly homeNavItem: Locator;
   readonly pollNavItem: Locator;
   readonly eventNavItem: Locator;
-  readonly createNavItem: Locator;
+  readonly createPollNavItem: Locator;
   readonly upgradeNavItem: Locator;
   readonly loginNavItem: Locator;
   readonly supportNavItem: Locator;
@@ -19,7 +19,7 @@ export class NavigationBar {
     this.homeNavItem = page.locator("a", { hasText: "Home" });
     this.pollNavItem = page.locator("a", { hasText: "Polls" });
     this.eventNavItem = page.locator("a", { hasText: "Events" });
-    this.createNavItem = page
+    this.createPollNavItem = page
       .getByRole("listitem")
       .locator("a", { hasText: "Create" });
     this.upgradeNavItem = page
@@ -40,7 +40,7 @@ export class NavigationBar {
     await expect(this.homeNavItem).toBeVisible();
     await expect(this.pollNavItem).toBeVisible();
     await expect(this.eventNavItem).toBeVisible();
-    await expect(this.createNavItem).toBeVisible();
+    await expect(this.createPollNavItem).toBeVisible();
     await expect(this.upgradeNavItem).toBeVisible();
     await expect(this.loginNavItem).toBeVisible();
     await expect(this.supportNavItem).toBeVisible();
