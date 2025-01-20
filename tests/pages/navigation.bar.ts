@@ -28,10 +28,11 @@ export class NavigationBar {
     this.loginNavItem = page.locator("a", { hasText: "Login" });
     this.supportNavItem = page.locator("a", { hasText: "Support" });
     this.prefNavItem = page.locator("a", { hasText: "Preferences" });
-    this.guestProfileNavItem = page.locator("span", { hasText: "Guest" });
+    this.guestProfileNavItem = page.locator("a", { hasText: "Guest" });
   }
 
   async navigateHome() {
+    // Navigates user to home page, by using baseURL defined in playwright.config.ts
     await this.page.goto("/");
   }
 
@@ -45,7 +46,6 @@ export class NavigationBar {
     await expect(this.loginNavItem).toBeVisible();
     await expect(this.supportNavItem).toBeVisible();
     await expect(this.prefNavItem).toBeVisible();
-    // This component is being rendered twice on the tests, commenting out this for now
-    // await expect(this.guestProfileNavItem).toHaveText("Guest");
+    await expect(this.guestProfileNavItem).toHaveText("Guest");
   }
 }

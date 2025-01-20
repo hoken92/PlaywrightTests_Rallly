@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+// Class components that contain resuable locators and functions
 import { NavigationBar } from "../pages/navigation.bar";
 import { CreatePollsPage } from "../pages/create.poll.page";
 import { HomePage } from "../pages/home.page";
@@ -6,7 +7,7 @@ import { PollDetailsPage } from "../pages/poll.details.page";
 import { PollsPage } from "../pages/polls.page";
 
 test.beforeEach(async ({ page }) => {
-  // Navigates user to home page
+  // Navigates user to home page, by using baseURL defined in playwright.config.ts
   await page.goto("/");
 });
 
@@ -17,7 +18,9 @@ test.describe("Poll CRUD", async () => {
   const newDescription = "Weekly meet up to catch up stories!";
 
   test(
-    "Create poll without required fields", // all smoke tags can be run with npm run test:smoke script // tags the test case as smoke tests
+    "Create poll without required fields",
+    // all smoke tags can be run with npm run test:smoke
+    // tags the test case as smoke tests
     { tag: "@smoke" },
     async ({ page }) => {
       const navigationBar: NavigationBar = new NavigationBar(page);
@@ -32,6 +35,7 @@ test.describe("Poll CRUD", async () => {
 
       // Checking the two required fields are enforced
       await createPollsPage.createPollButton.click();
+      await expect(createPollsPage.eventTitleLabel).toBeFocused();
       await expect(createPollsPage.titleErrorMessage).toBeVisible();
       await createPollsPage.eventTitleLabel.fill("Test Event One");
       await createPollsPage.createPollButton.click();
@@ -92,13 +96,17 @@ test.describe("Poll CRUD", async () => {
       navgationBar.pollNavItem.click();
       const pollsPage: PollsPage = new PollsPage(page);
       await expect(pollsPage.title).toBeVisible();
+      // Clicks on the existing poll to view detailed poll view
       await page.getByRole("heading", { name: pollName }).click();
+      // Closes the modal pop up
       await pollDetailsPage.closeModalButton.click();
       await expect(pollDetailsPage.titleNav).toBeVisible();
+      // Opens up the dropdown menu to click on edit edtails
       await pollDetailsPage.manageButton.click();
       await pollDetailsPage.editDetailsButton.waitFor();
       await pollDetailsPage.editDetailsButton.click();
       await expect(pollDetailsPage.eventTitleLabel).toHaveValue(pollName);
+      // Replace poll details with new values
       await pollDetailsPage.eventTitleLabel.fill(newPollName);
       await pollDetailsPage.eventLocationLabel.fill(newLocation);
       await pollDetailsPage.eventDescriptionLabel.fill(newDescription);
@@ -113,6 +121,7 @@ test.describe("Poll CRUD", async () => {
       ).toBeVisible();
 
       // PAUSE POLL
+      // Opens up the dropdown menu to pause poll
       await pollDetailsPage.manageButton.click();
       await pollDetailsPage.pauseButton.waitFor();
       await pollDetailsPage.pauseButton.click();
@@ -120,6 +129,7 @@ test.describe("Poll CRUD", async () => {
       await expect(pollDetailsPage.pausedTitle).toBeVisible();
 
       // DELETE POLL
+      // Opens up the dropdown menu to delete poll
       await pollDetailsPage.manageButton.click();
       await pollDetailsPage.deleteButton.waitFor();
       await pollDetailsPage.deleteButton.click();

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+// Class components that contain resuable locators and functions
 import { NavigationBar } from "../pages/navigation.bar";
 import { HomePage } from "../pages/home.page";
 import { PollsPage } from "../pages/polls.page";
@@ -15,7 +16,9 @@ test.describe("Navigation tests", async () => {
   test(
     "Guest Navigation",
     {
-      // tag: "@smoke",
+      // all smoke tags can be run with npm run test:smoke
+      // tags the test case as smoke tests
+      tag: "@smoke",
     },
     async ({ page }) => {
       // Sets up the class component to use Playwright page object
@@ -38,16 +41,18 @@ test.describe("Navigation tests", async () => {
       navigationBar.pollNavItem.click();
       const pollsPage: PollsPage = new PollsPage(page);
       await expect(pollsPage.title).toBeVisible();
+      await expect(pollsPage.noPollsText).toBeVisible();
 
       // Navigates to Events page via Nav and checks the title in the Events page
       navigationBar.eventNavItem.click();
       const eventsPage: EventsPage = new EventsPage(page);
       await expect(eventsPage.title).toBeVisible();
+      await expect(eventsPage.noEventsText).toBeVisible();
 
       // Navigates to Create Poll page via Nav and checks the title in the Create page
       navigationBar.createPollNavItem.click();
       const createPollsPage: CreatePollsPage = new CreatePollsPage(page);
-      await expect(createPollsPage.title).toBeVisible();
+      await createPollsPage.verifyPollElements();
       //   commenting out the close button, since the locator for the button is too generic
       //   redirecting back to the webpage with url instead
       //   await createPollsPage.closebutton.click();
@@ -73,8 +78,8 @@ test.describe("Navigation tests", async () => {
       await expect(billingPage.subHeading).toBeVisible();
 
       // Navigates to Profile page via Nav and checks the title and subheading in the Profile page
+      navigationBar.guestProfileNavItem.click();
       const profilePage: ProfilePage = new ProfilePage(page);
-      await profilePage.profileSettingButton.click();
       await expect(profilePage.title).toBeVisible();
       await expect(profilePage.subHeading).toBeVisible();
     },

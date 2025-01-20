@@ -22,6 +22,10 @@ export class CreatePollsPage {
   readonly calendarMonthDateText: Locator;
   readonly calendarTodayButton: Locator;
   readonly calendarDatePicker: Locator;
+  // Settings Card Section
+  readonly settingsTitle: Locator;
+  readonly settingsDescription: Locator;
+  readonly disableComments: Locator;
   // Create Poll
   readonly createPollButton: Locator;
   // Error messages
@@ -53,6 +57,12 @@ export class CreatePollsPage {
     // this.calendarMonthDateText = page.locator('div', { hasText: '' });
     this.calendarTodayButton = page.getByRole("button", { name: "Today" });
     this.calendarDatePicker = page.getByText("15");
+    // Settings Card Section
+    this.settingsTitle = page.getByRole("heading", { name: "Settings" });
+    this.settingsDescription = page.locator("p", {
+      hasText: "Customize the behaviour of your poll",
+    });
+    this.disableComments = page.getByLabel("Disable comments");
     // Create Poll Button
     this.createPollButton = page.getByRole("button", { name: "Create Poll" });
     // Error messages
@@ -69,6 +79,7 @@ export class CreatePollsPage {
     // Stores next month and year into a string and checks the text is visible and attached to the DOM
     const nextMonth = format(addMonths(new Date(), 1), "LLLL").toString();
     let currentYear = getYear(new Date());
+    // If the next month is January, increase the year count by 1
     if (nextMonth === "January") {
       (currentYear += 1).toString();
     }
@@ -78,9 +89,10 @@ export class CreatePollsPage {
   }
 
   async clickPrevMonth() {
-    // Stores prev month and year into a string and checks the text is visible and attached to the DOM
+    // Stores previous month and year into a string and checks the text is visible and attached to the DOM
     const prevMonth = format(subMonths(new Date(), 1), "LLLL").toString();
     let currentYear = getYear(new Date());
+    // If the prev month is December, increase the year count by 1
     if (prevMonth === "December") {
       (currentYear -= 1).toString();
     }
@@ -104,14 +116,14 @@ export class CreatePollsPage {
     const currentYear = getYear(new Date()).toString();
     const currentDate = currentMonth + " " + currentYear;
 
-    // Event Card
+    // Verify Event Card Elements
     await expect(this.title).toBeVisible();
     await expect(this.eventCardTitle).toBeVisible();
     await expect(this.eventCardDescription).toBeVisible();
     await expect(this.eventTitleLabel).toBeVisible();
     await expect(this.eventLocationLabel).toBeVisible();
     await expect(this.eventDescriptionLabel).toBeVisible();
-    // Calendar Card
+    // Verify Calendar Card Elements
     await expect(this.calendarTitle).toBeVisible();
     await expect(this.calendarDescription).toBeVisible();
     await expect(this.monthViewButton).toBeVisible();
@@ -120,5 +132,9 @@ export class CreatePollsPage {
     await expect(this.nextMonthButton).toBeVisible();
     await expect(this.page.getByText(currentDate)).toBeVisible();
     await expect(this.calendarTodayButton).toBeVisible();
+    // Verify Settings card elements
+    await expect(this.settingsTitle).toBeVisible();
+    await expect(this.settingsDescription).toBeVisible();
+    await expect(this.disableComments).toBeVisible();
   }
 }

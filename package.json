@@ -27,7 +27,8 @@
     "release": "./scripts/create-release.sh",
     "sherif": "npx sherif@latest",
     "sherif:fix": "npx sherif@latest --fix",
-    "test:smoke": "npx playwright test --grep @smoke --project=chromium --headed"
+    "test:smoke": "npx playwright test --grep @smoke --project=chromium --headed",
+    "test:qa": "npx playwright test --grep @qa --project=chromium --headed"
   },
   "prisma": {
     "seed": "yarn workspace @rallly/database db:seed",
