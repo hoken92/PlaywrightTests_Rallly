@@ -28,7 +28,7 @@ export class NavigationBar {
     this.loginNavItem = page.locator("a", { hasText: "Login" });
     this.supportNavItem = page.locator("a", { hasText: "Support" });
     this.prefNavItem = page.locator("a", { hasText: "Preferences" });
-    this.guestProfileNavItem = page.locator("a", { hasText: "Guest" });
+    this.guestProfileNavItem = page.locator("a", { hasText: "GGuest" });
   }
 
   async navigateHome() {
@@ -46,6 +46,6 @@ export class NavigationBar {
     await expect(this.loginNavItem).toBeVisible();
     await expect(this.supportNavItem).toBeVisible();
     await expect(this.prefNavItem).toBeVisible();
-    await expect(this.guestProfileNavItem).toHaveText("Guest");
+    await expect(this.guestProfileNavItem).toHaveText("GGuest");
   }
 }

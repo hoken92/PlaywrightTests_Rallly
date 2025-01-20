@@ -71,6 +71,18 @@ test.describe("Navigation tests", async () => {
       await expect(preferencePage.title).toBeVisible();
       await expect(preferencePage.subHeading).toBeVisible();
 
+      // Creates a new page context to check for a new tab for Support page
+      const newTab = page.waitForEvent("popup");
+      await navigationBar.supportNavItem.click();
+      const supportPage = await newTab;
+      await expect(supportPage).toHaveURL(
+        "https://support.rallly.co/introduction",
+      );
+      await expect(
+        supportPage.getByRole("heading", { name: "Introduction" }),
+      ).toBeVisible();
+      await supportPage.close();
+
       // Navigates to Billing page via Nav and checks the title and subheading in the Billing page
       const billingPage: BillingPage = new BillingPage(page);
       await billingPage.billingButton.click();

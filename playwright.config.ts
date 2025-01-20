@@ -43,7 +43,7 @@ export default defineConfig({
 
   expect: {
     // Maximum time expect() should wait for the condition to be met.
-    timeout: 20000,
+    timeout: 10000,
 
     toHaveScreenshot: {
       // An acceptable amount of pixels that could be different, unset by default.

@@ -80,21 +80,15 @@ test.describe("Poll CRUD", async () => {
         "1 Live",
       );
       await navigationBar.pollNavItem.click();
-      // This soft test is expected to fail, rallly app is not updating this number correctly currently
+      // This soft test is expected to fail, rallly app is not updating this count to "1" correctly currently
       // So this test will hang for a bit and will continue the rest of the tests.
-      await expect
-        .soft(
-          page
-            .getByRole("button", { name: "Live" })
-            .locator("span", { hasText: "1" }),
-        )
-        .toBeVisible();
+      const pollsPage: PollsPage = new PollsPage(page);
+      await expect.soft(pollsPage.liveFilterButton).toHaveText("Live1");
       await expect(page.getByRole("heading", { name: pollName })).toBeVisible();
 
       // EDIT POLL DETAILS
       const navgationBar: NavigationBar = new NavigationBar(page);
       navgationBar.pollNavItem.click();
-      const pollsPage: PollsPage = new PollsPage(page);
       await expect(pollsPage.title).toBeVisible();
       // Clicks on the existing poll to view detailed poll view
       await page.getByRole("heading", { name: pollName }).click();
@@ -127,9 +121,20 @@ test.describe("Poll CRUD", async () => {
       await pollDetailsPage.pauseButton.click();
       await expect(pollDetailsPage.pausedStatus).toBeVisible();
       await expect(pollDetailsPage.pausedTitle).toBeVisible();
+      await page.goto("/polls");
+      await pollsPage.pausedFilterButton.click();
+      // This soft test is expected to fail, rallly app is not updating this number correctly currently
+      // So this test will hang for a bit and will continue the rest of the tests.
+      await expect.soft(pollsPage.pausedFilterButton).toHaveText("Paused1");
+      await expect(
+        page.getByRole("heading", { name: newPollName }),
+      ).toBeVisible();
 
       // DELETE POLL
       // Opens up the dropdown menu to delete poll
+      // Clicks on the existing poll to view detailed poll view
+      await page.getByRole("heading", { name: newPollName }).click();
+      await pollDetailsPage.closeModalButton.click();
       await pollDetailsPage.manageButton.click();
       await pollDetailsPage.deleteButton.waitFor();
       await pollDetailsPage.deleteButton.click();
