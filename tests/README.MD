@@ -43,7 +43,9 @@ For more information on Page objects, read Playwright documentation [Doc](https:
    - Pause a poll and checks if it is updated and reflected on Polls page
      - A test case for the Poll filter "Paused 1" is expected to fail. The app doesn't correctly update.
    - Delete a poll and checks if the poll is shown on Polls page
-     I would recommend running this test separately as it does have a lot steps due to an issue listed down in blockers.
+
+- I would recommend running this test separately as it does have a lot steps due to an issue listed down in blockers.
+
 3. Delete Guest User Test Case:
    - Creates a session and deletes the guest user
 
