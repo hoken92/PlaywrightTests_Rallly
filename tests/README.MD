@@ -39,7 +39,7 @@ After following Rallly's installation process in their [README](../README.md) an
 1. Running all tests, in headless mode on Chrome
 
 ```
-npx npx playwright test
+npx playwright test
 ```
 
 2. All current tests have a tag for smoke. Using the following command will run all tagged tests in head mode
