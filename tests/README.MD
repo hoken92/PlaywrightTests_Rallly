@@ -22,8 +22,8 @@ Following the command npm install will install Playwright and all other Rallly d
  |- playwright.config.ts # Configuration file
  |- test-results # Test recordings and failed test screenshots
  |- tests # Root directory for all my tests, locators
- |-- pages # Sets of pages for Rallly application
- |-- testCases # Here is the magic 🧙‍♂️
+  -- pages # Sets of pages for Rallly application
+  -- testCases # Here is the magic 🧙‍♂️
 ```
 
 ## 📜 Test Suite Coverage
