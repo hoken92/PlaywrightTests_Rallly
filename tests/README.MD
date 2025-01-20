@@ -76,9 +76,9 @@ npx playwright test --headed --project chromium 'file-name'
 
 ## ✅ How to get Results
 
-After the tests have completed, you can run the command below. This will open up the HTML report into your browser where you can view all test results. It'll also include a recording of the test flow the test cases went through.
+- After the tests have completed, you can run the command below. This will open up the HTML report into your browser where you can view all test results. It'll also include a recording of the test flow the test cases went through.
 
-If any failures occured, there will be a screenshot of the time the test failed.
+- If any failures occured, there will be a screenshot of the time the test failed.
 
 ```
 npx playwright show-report
