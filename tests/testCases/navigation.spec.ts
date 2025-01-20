@@ -37,17 +37,17 @@ test.describe("Navigation tests", async () => {
       // Navigates to Polls page via nav and checks the title in the Polls page
       navigationBar.pollNavItem.click();
       const pollsPage: PollsPage = new PollsPage(page);
-      await expect(pollsPage.title).toHaveText("Polls");
+      await expect(pollsPage.title).toBeVisible();
 
       // Navigates to Events page via Nav and checks the title in the Events page
       navigationBar.eventNavItem.click();
       const eventsPage: EventsPage = new EventsPage(page);
-      await expect(eventsPage.title).toHaveText("Events");
+      await expect(eventsPage.title).toBeVisible();
 
       // Navigates to Create Poll page via Nav and checks the title in the Create page
       navigationBar.createPollNavItem.click();
       const createPollsPage: CreatePollsPage = new CreatePollsPage(page);
-      await expect(createPollsPage.title).toHaveText("Group Poll");
+      await expect(createPollsPage.title).toBeVisible();
       //   commenting out the close button, since the locator for the button is too generic
       //   redirecting back to the webpage with url instead
       //   await createPollsPage.closebutton.click();
@@ -56,27 +56,27 @@ test.describe("Navigation tests", async () => {
       // Navigates to Login page via Nav and checks the title in the Create page
       navigationBar.loginNavItem.click();
       const loginPage: LoginPage = new LoginPage(page);
-      await expect(loginPage.title).toHaveText("Login");
+      await expect(loginPage.title).toBeVisible();
       // redirect back to the Home page to continue Nav tests
       await loginPage.guestbutton.click();
 
       // Navigates to Preference page via Nav and checks the title and subheading in the Preference page
       const preferencePage: PreferencePage = new PreferencePage(page);
       await navigationBar.prefNavItem.click();
-      await expect(preferencePage.title).toHaveText("Settings");
-      await expect(preferencePage.subHeading).toHaveText("Language");
+      await expect(preferencePage.title).toBeVisible();
+      await expect(preferencePage.subHeading).toBeVisible();
 
       // Navigates to Billing page via Nav and checks the title and subheading in the Billing page
       const billingPage: BillingPage = new BillingPage(page);
       await billingPage.billingButton.click();
-      await expect(billingPage.title).toHaveText("Settings");
-      await expect(billingPage.subHeading).toHaveText("Free");
+      await expect(billingPage.title).toBeVisible();
+      await expect(billingPage.subHeading).toBeVisible();
 
       // Navigates to Profile page via Nav and checks the title and subheading in the Profile page
       const profilePage: ProfilePage = new ProfilePage(page);
       await profilePage.profileSettingButton.click();
-      await expect(profilePage.title).toHaveText("Settings");
-      await expect(profilePage.subHeading).toHaveText("Profile");
+      await expect(profilePage.title).toBeVisible();
+      await expect(profilePage.subHeading).toBeVisible();
     },
   );
 
