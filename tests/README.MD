@@ -12,6 +12,8 @@ Headless execution is supported for all browsers on all platforms. Check out [sy
 
 ## Installation
 
+After forking over the repo, please make sure to navigate back to the root folder "Rallly".
+
 Following the command npm install will install Playwright and all other Rallly dependencies.
 
 ## 📁 Structure
@@ -24,13 +26,24 @@ Following the command npm install will install Playwright and all other Rallly d
  |-- testCases # Here is the magic 🧙‍♂️
 ```
 
-## 📜 What is Pages?
+## 📜 Test Suite Coverage
 
 For the suite template I chose to follow the Page Objects pattern in order to encapsulate each pages internal structure and responsibilities inside its own highly cohesive class file.
 
-That means that for each page I would define a new Page object for my needs. We should not confuse the Page objects, that create with actual pages in the application. We can think of Pages as a lightweight concept of a **view**, which is the set of cohesive elements living under a known browser location.
-
 For more information on Page objects, read Playwright documentation [Doc](https://playwright.dev/docs/pom).
+
+1. Navigation Test Case:
+   - Validates all navigation items are visible and attached to the DOM
+   - Clicks on each navigation item and verifies the content of the page
+2. Create/Edit/Pause/Delete Test Case:
+   - Creates a poll w/out required fields
+   - Creates a poll w required fields
+   - Edit a poll with new values and checks it is updated
+   - Pause a poll and checks if it is updated and reflected on Polls page
+   - Delete a poll and checks if the poll is shown on Polls page
+     I would recommend running this test separately as it does have a lot steps due to an issue listed down in blockers.
+3. Delete Guest User Test Case:
+   - Creates a session and deletes the guest user
 
 ## 🧰 How to run playwright tests
 
@@ -48,9 +61,15 @@ npx playwright test
 npm run test:smoke
 ```
 
+3. Run individual tests on their own in head mode on chrome
+
+```
+npx playwright test --headed --project chromium 'file-name'
+```
+
 ## :pencil2: Note:
 
-- Configured in the playwright.config.ts is the timeout for each test step. It is currently configured to 10-20 seconds. I would suggest to increase it if it is the first time running the tests, since loading on local for nextJS is slow on loading the first time.
+- Configured in the playwright.config.ts is the timeout for each test step. It is currently configured to 6 seconds. I would suggest to increase it if it is the first time running the tests, since loading on local for nextJS is slow on loading the first time.
 - The max runtime each test can take is 30 seconds. If a test exceeds the runtime, the test will exit automatically.
 
 ## ✅ How to get Results
@@ -67,8 +86,9 @@ npx playwright show-report
 
 1. Run the tests on CI with GitHub Actions
 2. Implementing data-testids for more accurate element locators. It would hugely improve assertions and allow more flexibility on class locators to be used elsewhere.
-3.
+3. Add in API tests for CRUD actions for a poll
 
 ## 🎬 Blockers
 
 1. My local couldn't set up the email verification messenger. It would never send out the 6 digit code, used to verify the email address. This ended up blocking test cases to register for any accounts and login flow.
+2. The above made verifying an existing poll longer. Each test is a new browser session, which meant each test would have a new guest user and the created poll wouldn't exist. To work around this, I had to include all CRUD tests in a single test and that causes the test run time to exceed 30 seconds with 4 tests running locally in parrallel.
