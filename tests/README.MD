@@ -12,7 +12,7 @@ Headless execution is supported for all browsers on all platforms. Check out [sy
 
 ## Installation
 
-After forking over the repo, please make sure to navigate back to the root folder "Rallly".
+After forking over the repo, please make sure to navigate back to the root folder, PlaywrightTests_Rallly.
 
 Following the command npm install will install Playwright and all other Rallly dependencies.
 
